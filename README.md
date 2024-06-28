@@ -42,11 +42,11 @@
 ARG SJP_COMMIT=main
 ARG TEMPLATE_FOLDER=templates
 ```
-`SJP_COMMIT` задает конкретный коммит для клонирования репозитория, а `TEMPLATE_FOLDER` задает папку с шаблонами, которая будет скопирована в образ.
+`SJP_COMMIT` задает версию для клонирования репозитория, а `TEMPLATE_FOLDER` задает папку с шаблонами, которая будет скопирована в образ.
 ## Пример создания образа
 Образ `0.1.0-slim`:
 ```bash
-docker build -t barseeek/static-jinja-plus:0.1.0-slim -f Dockerfiles/Dockerfile_slim . --build-arg SJP_COMMIT=a9f8f5ba28827841eab003c8b7d49d757f2df9e2 --build-arg TEMPLATE_FOLDER=new_templates
+docker build -t barseeek/static-jinja-plus:0.1.0-slim -f Dockerfiles/Dockerfile_slim . --build-arg SJP_COMMIT=0.1.0 --build-arg TEMPLATE_FOLDER=new_templates
 docker run -v "$(pwd)/build:/StaticJinjaPlus/build" -v "$(pwd)/new_templates:/StaticJinjaPlus/new_templates" -it barseeek/static-jinja-plus:0.1.0-slim
 ```
 Образ `latest`:
