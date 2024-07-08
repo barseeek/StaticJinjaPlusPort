@@ -39,14 +39,15 @@
 ## Аргументы для создания образа
 В Dockerfilах проекта аргументы объявляются следующим образом (ниже представлены значения по умолчанию):
 ```bash
-ARG SJP_COMMIT=main
+ARG SJP_TAG=latest
+ARG STAGE=main
 ARG TEMPLATE_FOLDER=templates
 ```
-`SJP_COMMIT` задает версию для клонирования репозитория, а `TEMPLATE_FOLDER` задает папку с шаблонами, которая будет скопирована в образ.
+`STAGE` задает какую версию будем скачивать, `main` или с тэгом, `SJP_TAG` задает тэг(необходимо точки менять на подчеркивания, для автоматической проверки контрольной суммы), а `TEMPLATE_FOLDER` задает папку с шаблонами, которая будет скопирована в образ.
 ## Пример создания образа
 Образ `0.1.0-slim`:
 ```bash
-docker build -t barseeek/static-jinja-plus:0.1.0-slim -f Dockerfiles/Dockerfile_slim . --build-arg SJP_COMMIT=0.1.0 --build-arg TEMPLATE_FOLDER=new_templates
+docker build -t barseeek/static-jinja-plus:0.1.0-slim -f Dockerfiles/Dockerfile_slim . --build-arg SJP_TAG=0_1_0 --build-arg STAGE=tag --build-arg TEMPLATE_FOLDER=new_templates
 docker run -v "$(pwd)/build:/StaticJinjaPlus/build" -v "$(pwd)/new_templates:/StaticJinjaPlus/new_templates" -it barseeek/static-jinja-plus:0.1.0-slim
 ```
 Образ `latest`:
