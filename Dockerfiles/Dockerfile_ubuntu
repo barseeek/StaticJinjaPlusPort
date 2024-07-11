@@ -29,5 +29,4 @@ ENV PATH="/opt/StaticJinjaPlus/venv/bin:$PATH"
 RUN pip install --no-cache-dir -r requirements.txt
 ARG TEMPLATE_FOLDER=templates
 ENV TEMPLATE_FOLDER=${TEMPLATE_FOLDER}
-COPY ./$TEMPLATE_FOLDER ./$TEMPLATE_FOLDER
 CMD sh -c "python3 main.py -w --srcpath ${TEMPLATE_FOLDER}"
