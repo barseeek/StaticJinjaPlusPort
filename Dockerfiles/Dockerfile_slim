@@ -3,25 +3,26 @@ ARG BASE_URL=https://github.com/MrDave/StaticJinjaPlus/archive/refs
 ARG SJP_TAG=latest
 
 FROM python:3.12-slim-bullseye as base
+WORKDIR /StaticJinjaPlus/
 
 FROM base AS stage-main-latest
 ARG BASE_URL
-ARG CHECKSUM=9adccb8fe17a40252df1a3acdea7edef4633b4ecaa8ba2dd5e0270f87ae43eab
 ENV URL=${BASE_URL}/heads/main.tar.gz
+ADD $URL staticjinjaplus.tar.gz
 
 FROM base AS stage-tag-0_1_0
 ARG BASE_URL
 ARG CHECKSUM=3555bcfd670e134e8360ad934cb5bad1bbe2a7dad24ba7cafa0a3bb8b23c6444
 ENV URL=${BASE_URL}/tags/0.1.0.tar.gz
+ADD --checksum=sha256:$CHECKSUM $URL staticjinjaplus.tar.gz
 
 FROM base AS stage-tag-0_1_1
 ARG BASE_URL
 ARG CHECKSUM=30d9424df1eddb73912b0e2ad5375fa2c876c8e30906bec91952dfb75dcf220b
 ENV URL=${BASE_URL}/tags/0.1.1.tar.gz
+ADD --checksum=sha256:$CHECKSUM $URL staticjinjaplus.tar.gz
 
 FROM stage-${STAGE}-${SJP_TAG}
-WORKDIR /StaticJinjaPlus/
-ADD --checksum=sha256:$CHECKSUM $URL staticjinjaplus.tar.gz
 RUN tar xzf staticjinjaplus.tar.gz --strip-components=1 -C /StaticJinjaPlus/ && rm staticjinjaplus.tar.gz
 RUN python3 -m venv venv
 ENV PATH="/StaticJinjaPlus/venv/bin:$PATH"
